@@ -85,7 +85,7 @@ def model_training(formatted_data, out_path,epochs=5):
                 example = Example.from_dict(doc, label)
                 nlp.update([example], sgd=optimizer, drop=0.2,losses=losses)
    nlp.to_disk(out_path)
-   return out_path
+   #return out_path
   
   
    
