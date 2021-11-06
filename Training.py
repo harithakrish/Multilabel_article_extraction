@@ -8,6 +8,7 @@ import spacy
 from spacy.pipeline.textcat_multilabel import DEFAULT_MULTI_TEXTCAT_MODEL
 from spacy.training import Example
 from spacy.util import minibatch, compounding
+from Data_annotation import train_dataformatting
 
 
 def label_list(input_file):
@@ -40,18 +41,16 @@ def remove_Stopwords(text):
     stoprm_text=" ".join([str(token) for token in doc if token.is_stop==False])
     return stoprm_text
 
+train_data,test_data=data_splitting(input_file)
+
 # formatted train data
 Formatted_traindata=train_dataformatting(train_data)
-
-
-
 
 # creating blank spacy model
 nlp = spacy.blank("en")
 
 # model configuration
 config = {"threshold": 0.5,"model": DEFAULT_MULTI_TEXTCAT_MODEL}
-
 textcat = nlp.add_pipe("textcat_multilabel", config=config)
 
 
@@ -63,10 +62,7 @@ for label in Categories:
     
 # training initiation
 train_examples = [Example.from_dict(nlp.make_doc(text), label) for text,label in Formatted_traindata]
-
 textcat.initialize(lambda: train_examples, nlp=nlp)
-
-
 
 
 def model_training(formatted_data, out_path,epochs=5):
@@ -86,8 +82,6 @@ def model_training(formatted_data, out_path,epochs=5):
                 nlp.update([example], sgd=optimizer, drop=0.2,losses=losses)
    nlp.to_disk(out_path)
    #return out_path
-  
-  
-   
-  
-  
+    
+    
+    model_training(Formatted_traindata,out_path,epochs=5)
