@@ -69,7 +69,7 @@ textcat.initialize(lambda: train_examples, nlp=nlp)
 
 
 
-def training(formatted_data, out_path):
+def model_training(formatted_data, out_path):
   # model training 
   epochs=3  # training iteration
   with nlp.select_pipes(enable="textcat_multilabel"):
