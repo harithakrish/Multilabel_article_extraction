@@ -69,9 +69,9 @@ textcat.initialize(lambda: train_examples, nlp=nlp)
 
 
 
-def model_training(formatted_data, out_path):
+def model_training(formatted_data, out_path,epochs=5):
   # model training 
-  epochs=3  # training iteration
+  #epochs=3  # training iteration
   with nlp.select_pipes(enable="textcat_multilabel"):
       optimizer =nlp.resume_training() # resuming initiated model
       batches = minibatch(Formatted_traindata, size=compounding(4., 32., 1.001))
