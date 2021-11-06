@@ -83,5 +83,5 @@ def model_training(formatted_data, out_path,epochs=5):
    nlp.to_disk(out_path)
    #return out_path
     
-    
-    model_training(Formatted_traindata,out_path,epochs=5)
+
+model_training(Formatted_traindata,out_path,epochs=5)
